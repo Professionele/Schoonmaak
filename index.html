@@ -43,28 +43,43 @@
       position: relative;
       overflow-x: hidden;
     }
-    /* Rustig zwevende bouncende ballen */
+    /* Zwevende glossy ballen */
     .decor-balls {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: -1;
     }
-    .bubble {
+    .ball {
       position: absolute;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(81,212,250,0.4));
       border-radius: 50%;
-      box-shadow: 0 0 30px var(--primary-light);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      will-change: transform;
-      transition: transform 0.1s linear;
+      box-shadow: 0 0 40px rgba(81,212,250,0.5), inset 0 0 20px rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      animation: float 25s infinite ease-in-out, pulse 6s infinite ease-in-out;
     }
-    [data-theme="light"] .bubble {
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(79,195,247,0.5));
+    .ball:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s; }
+    .ball:nth-child(2) { width: 250px; height: 250px; top: 40%; right: 10%; animation-delay: 5s; }
+    .ball:nth-child(3) { width: 350px; height: 350px; bottom: 15%; left: 20%; animation-delay: 10s; }
+    .ball:nth-child(4) { width: 200px; height: 200px; bottom: 30%; right: 15%; animation-delay: 15s; }
+    .ball:nth-child(5) { width: 280px; height: 280px; top: 60%; left: 50%; animation-delay: 20s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-40px) translateX(30px); }
+      50% { transform: translateY(-80px) translateX(-30px); }
+      75% { transform: translateY(-30px) translateX(40px); }
     }
-    [data-theme="dark"] .bubble {
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
-      box-shadow: 0 0 40px rgba(255,255,255,0.6);
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.05); }
+    }
+    /* Sterke lichtgevende glow in dark mode voor titels + contactinfo */
+    [data-theme="dark"] h2,
+    [data-theme="dark"] .contact-title,
+    [data-theme="dark"] .contact-info {
+      color: var(--primary-light) !important;
+      text-shadow: 0 0 20px var(--primary-light), 0 0 40px var(--primary-light), 0 0 60px var(--primary-light);
     }
     header {
       position: relative;
@@ -304,23 +319,13 @@
 </head>
 <body>
 
-  <!-- Rustig zwevende bouncende ballen (15 kleine) -->
+  <!-- Zwevende glossy ballen -->
   <div class="decor-balls">
-    <div class="bubble" style="width: 120px; height: 120px;"></div>
-    <div class="bubble" style="width: 100px; height: 100px;"></div>
-    <div class="bubble" style="width: 140px; height: 140px;"></div>
-    <div class="bubble" style="width: 110px; height: 110px;"></div>
-    <div class="bubble" style="width: 130px; height: 130px;"></div>
-    <div class="bubble" style="width: 90px; height: 90px;"></div>
-    <div class="bubble" style="width: 150px; height: 150px;"></div>
-    <div class="bubble" style="width: 80px; height: 80px;"></div>
-    <div class="bubble" style="width: 160px; height: 160px;"></div>
-    <div class="bubble" style="width: 115px; height: 115px;"></div>
-    <div class="bubble" style="width: 125px; height: 125px;"></div>
-    <div class="bubble" style="width: 105px; height: 105px;"></div>
-    <div class="bubble" style="width: 145px; height: 145px;"></div>
-    <div class="bubble" style="width: 95px; height: 95px;"></div>
-    <div class="bubble" style="width: 135px; height: 135px;"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
   </div>
 
   <header>
@@ -417,56 +422,6 @@
   </footer>
 
   <script>
-    // Rustig zwevende bouncende ballen
-    const bubbles = document.querySelectorAll('.bubble');
-    const bubbleArray = Array.from(bubbles).map(bubble => ({
-      el: bubble,
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.8, // rustige snelheid
-      vy: (Math.random() - 0.5) * 0.8,
-      radius: parseFloat(bubble.style.width) / 2
-    }));
-
-    function updateBubbles() {
-      bubbleArray.forEach((bubble, i) => {
-        bubble.x += bubble.vx;
-        bubble.y += bubble.vy;
-
-        // Rustige bounce op randen
-        if (bubble.x < 0 || bubble.x > window.innerWidth - bubble.radius * 2) {
-          bubble.vx *= -0.95;
-          bubble.x = Math.max(0, Math.min(bubble.x, window.innerWidth - bubble.radius * 2));
-        }
-        if (bubble.y < 0 || bubble.y > window.innerHeight - bubble.radius * 2) {
-          bubble.vy *= -0.95;
-          bubble.y = Math.max(0, Math.min(bubble.y, window.innerHeight - bubble.radius * 2));
-        }
-
-        // Zachte bounce tegen andere ballen
-        bubbleArray.forEach((other, j) => {
-          if (i !== j) {
-            const dx = bubble.x - other.x;
-            const dy = bubble.y - other.y;
-            const distance = Math.sqrt(dx*dx + dy*dy);
-            if (distance < bubble.radius + other.radius) {
-              const angle = Math.atan2(dy, dx);
-              bubble.vx = Math.cos(angle) * 0.6;
-              bubble.vy = Math.sin(angle) * 0.6;
-              other.vx = -Math.cos(angle) * 0.6;
-              other.vy = -Math.sin(angle) * 0.6;
-            }
-          }
-        });
-
-        bubble.el.style.left = `${bubble.x}px`;
-        bubble.el.style.top = `${bubble.y}px`;
-      });
-
-      requestAnimationFrame(updateBubbles);
-    }
-    updateBubbles();
-
     // Voorkom auto-scroll
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
