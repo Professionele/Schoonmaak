@@ -57,7 +57,7 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       will-change: transform;
-      transition: transform 0.1s linear;
+      transition: transform 0.15s ease-out;
     }
     [data-theme="light"] .bubble {
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(79,195,247,0.5));
@@ -430,8 +430,8 @@
       el: bubble,
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.8, // rustige snelheid
-      vy: (Math.random() - 0.5) * 0.8,
+      vx: (Math.random() - 0.5) * 0.6, // nog rustiger snelheid
+      vy: (Math.random() - 0.5) * 0.6,
       radius: parseFloat(bubble.style.width) / 2
     }));
 
@@ -440,17 +440,17 @@
         bubble.x += bubble.vx;
         bubble.y += bubble.vy;
 
-        // Rustige bounce op randen
+        // Rustige bounce op randen met demping
         if (bubble.x < 0 || bubble.x > window.innerWidth - bubble.radius * 2) {
-          bubble.vx *= -0.95;
+          bubble.vx *= -0.85; // meer demping
           bubble.x = Math.max(0, Math.min(bubble.x, window.innerWidth - bubble.radius * 2));
         }
         if (bubble.y < 0 || bubble.y > window.innerHeight - bubble.radius * 2) {
-          bubble.vy *= -0.95;
+          bubble.vy *= -0.85;
           bubble.y = Math.max(0, Math.min(bubble.y, window.innerHeight - bubble.radius * 2));
         }
 
-        // Zachte bounce tegen andere ballen
+        // Zachte bounce tegen andere ballen met demping
         bubbleArray.forEach((other, j) => {
           if (i !== j) {
             const dx = bubble.x - other.x;
@@ -458,10 +458,11 @@
             const distance = Math.sqrt(dx*dx + dy*dy);
             if (distance < bubble.radius + other.radius) {
               const angle = Math.atan2(dy, dx);
-              bubble.vx = Math.cos(angle) * 0.6;
-              bubble.vy = Math.sin(angle) * 0.6;
-              other.vx = -Math.cos(angle) * 0.6;
-              other.vy = -Math.sin(angle) * 0.6;
+              const impulse = 0.4; // lagere impuls voor rustiger bounce
+              bubble.vx = Math.cos(angle) * impulse;
+              bubble.vy = Math.sin(angle) * impulse;
+              other.vx = -Math.cos(angle) * impulse;
+              other.vy = -Math.sin(angle) * impulse;
             }
           }
         });
