@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Schoonmaak Park - Industriële Reiniging</title>
 
-  <!-- Open Graph tags voor WhatsApp/Facebook preview -->
+  <!-- Open Graph tags voor WhatsApp/Facebook preview – nu met .jpg -->
   <meta property="og:title" content="Schoonmaak Park - Industriële Reiniging" />
   <meta property="og:description" content="Professionele industriële reiniging: schoon, veilig & duurzaam. VCA-gecertificeerd. Offerte aanvragen!" />
   <meta property="og:image" content="https://professionionele.github.io/Schoonmaak-park/SchoonmaakPark.jpg" />
@@ -15,7 +15,7 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Schoonmaak Park Logo" />
 
-  <!-- Extra tags voor betere WhatsApp ondersteuning -->
+  <!-- Twitter/X cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Schoonmaak Park - Industriële Reiniging" />
   <meta name="twitter:description" content="Professionele industriële reiniging: schoon, veilig & duurzaam. VCA-gecertificeerd." />
@@ -447,7 +447,7 @@
       el: bubble,
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.6, // nog rustiger snelheid
+      vx: (Math.random() - 0.5) * 0.6,
       vy: (Math.random() - 0.5) * 0.6,
       radius: parseFloat(bubble.style.width) / 2
     }));
@@ -457,9 +457,8 @@
         bubble.x += bubble.vx;
         bubble.y += bubble.vy;
 
-        // Rustige bounce op randen met demping
         if (bubble.x < 0 || bubble.x > window.innerWidth - bubble.radius * 2) {
-          bubble.vx *= -0.85; // meer demping
+          bubble.vx *= -0.85;
           bubble.x = Math.max(0, Math.min(bubble.x, window.innerWidth - bubble.radius * 2));
         }
         if (bubble.y < 0 || bubble.y > window.innerHeight - bubble.radius * 2) {
@@ -467,7 +466,6 @@
           bubble.y = Math.max(0, Math.min(bubble.y, window.innerHeight - bubble.radius * 2));
         }
 
-        // Zachte bounce tegen andere ballen met demping
         bubbleArray.forEach((other, j) => {
           if (i !== j) {
             const dx = bubble.x - other.x;
@@ -475,7 +473,7 @@
             const distance = Math.sqrt(dx*dx + dy*dy);
             if (distance < bubble.radius + other.radius) {
               const angle = Math.atan2(dy, dx);
-              const impulse = 0.4; // lagere impuls voor rustiger bounce
+              const impulse = 0.4;
               bubble.vx = Math.cos(angle) * impulse;
               bubble.vy = Math.sin(angle) * impulse;
               other.vx = -Math.cos(angle) * impulse;
@@ -492,7 +490,6 @@
     }
     updateBubbles();
 
-    // Voorkom auto-scroll
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
       window.scrollTo(0, 0);
