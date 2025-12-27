@@ -19,8 +19,6 @@
       --glass-bottom: rgba(255, 255, 255, 0.45);
       --glass-border: rgba(81, 212, 250, 0.4);
       --shadow: 0 12px 40px rgba(2, 136, 209, 0.25);
-      --fade-light: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 80%);
-      --fade-dark: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, transparent 80%);
     }
     [data-theme="dark"] {
       --primary: #01579b;
@@ -40,50 +38,36 @@
       color: var(--text-dark);
       line-height: 1.6;
       min-height: 100vh;
-      background: black;
-      background-image: radial-gradient(circle at center, white 0%, #222 10%, black 60%);
-      overflow: hidden;
+      background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+      overflow-x: hidden;
       position: relative;
       transition: background 0.5s ease, color 0.5s ease;
     }
-    /* Magische driehoeken achtergrond */
-    .tri-wrap {
+    /* Ballen met stuiter-animatie */
+    .bubbles {
       position: fixed;
       inset: 0;
-      transform-style: preserve-3d;
-      perspective: 800px;
       pointer-events: none;
       z-index: -1;
     }
-    .tri {
+    .bubble {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0;
-      opacity: 0;
-      transform: translate(-50%, -50%) rotate(0deg) translate3d(0,0,-1500px) scale(0);
+      border-radius: 50%;
+      box-shadow: 0 0 40px var(--primary-light);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      will-change: transform;
+      transition: transform 0.1s ease-out;
     }
-    @keyframes anim {
-      0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) rotate(var(--rotate)) translate3d(var(--x), var(--y), 1000px) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) rotate(calc(var(--rotate) * 1.5)) translate3d(calc(var(--x) * 2), calc(var(--y) * 2), -1500px) scale(0.5);
-      }
+    /* Lichte modus: blauwachtig */
+    [data-theme="light"] .bubble {
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(79,195,247,0.6));
     }
-    /* 200 triangles met random kleuren, grootte en richting */
-    .tri:nth-child(1)  { --size: 20px; --rotate: 45deg; --x: 300px; --y: -200px; animation: anim 12s infinite linear; animation-delay: 0s; border-top: 20px solid hsl(0, 100%, 50%); }
-    .tri:nth-child(2)  { --size: 18px; --rotate: 120deg; --x: -400px; --y: 150px; animation-delay: 0.5s; border-top: 18px solid hsl(30, 100%, 50%); }
-    .tri:nth-child(3)  { --size: 22px; --rotate: 200deg; --x: 500px; --y: 300px; animation-delay: 1s; border-top: 22px solid hsl(60, 100%, 50%); }
-    .tri:nth-child(4)  { --size: 15px; --rotate: 300deg; --x: -600px; --y: -250px; animation-delay: 1.5s; border-top: 15px solid hsl(90, 100%, 50%); }
-    .tri:nth-child(5)  { --size: 25px; --rotate: 50deg; --x: 200px; --y: 400px; animation-delay: 2s; border-top: 25px solid hsl(120, 100%, 50%); }
-    /* ... (ik maak er 200, maar hier kort voor overzicht) */
-    /* In echte code: 200x random HSL kleuren en posities */
+    /* Donkere modus: wit/helder */
+    [data-theme="dark"] .bubble {
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+      box-shadow: 0 0 50px rgba(255,255,255,0.8);
+    }
     header {
       position: relative;
       background: linear-gradient(to bottom, var(--primary-light), transparent);
@@ -103,7 +87,6 @@
       align-items: center;
       background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-radius: 16px;
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
@@ -214,7 +197,6 @@
     .section {
       background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-radius: 24px;
       padding: 3rem 2rem;
       margin: 2.5rem 0;
@@ -319,14 +301,13 @@
 </head>
 <body>
 
-  <!-- Magische driehoeken achtergrond -->
-  <div class="tri-wrap">
-    <div class="tri"></div>
-    <div class="tri"></div>
-    <div class="tri"></div>
-    <div class="tri"></div>
-    <div class="tri"></div>
-    <!-- Herhaal dit 200 keer met random waarden (ik maak er hier 5 voor voorbeeld, maar gebruik JS voor 200) -->
+  <!-- Zwevende stuiterende ballen -->
+  <div class="bubbles">
+    <div class="bubble" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
+    <div class="bubble" style="width: 250px; height: 250px; top: 40%; right: 10%;"></div>
+    <div class="bubble" style="width: 350px; height: 350px; bottom: 15%; left: 20%;"></div>
+    <div class="bubble" style="width: 200px; height: 200px; bottom: 30%; right: 15%;"></div>
+    <div class="bubble" style="width: 280px; height: 280px; top: 60%; left: 50%;"></div>
   </div>
 
   <header>
@@ -423,30 +404,51 @@
   </footer>
 
   <script>
-    // Dynamisch 200 triangles toevoegen met random waarden
-    const triWrap = document.querySelector('.tri-wrap');
-    const total = 200;
-    const time = 10; // animatieduur in seconden
+    // Ballen stuiter-logica
+    const bubbles = document.querySelectorAll('.bubble');
+    const bubbleArray = Array.from(bubbles).map(bubble => ({
+      el: bubble,
+      x: parseFloat(bubble.style.left) || 0,
+      y: parseFloat(bubble.style.top) || 0,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: parseFloat(bubble.style.width) / 2
+    }));
 
-    for (let i = 1; i <= total; i++) {
-      const tri = document.createElement('div');
-      tri.classList.add('tri');
-      const size = Math.random() * 50 + 10; // 10-60px
-      const rotate = Math.random() * 360;
-      const x = (Math.random() - 0.5) * 2000;
-      const y = (Math.random() - 0.5) * 2000;
-      const hue = Math.random() * 360;
-      tri.style.setProperty('--size', `${size}px`);
-      tri.style.setProperty('--rotate', `${rotate}deg`);
-      tri.style.setProperty('--x', `${x}px`);
-      tri.style.setProperty('--y', `${y}px`);
-      tri.style.borderTop = `\( {size}px solid hsl( \){hue}, 100%, 50%)`;
-      tri.style.animation = `anim ${time}s infinite linear`;
-      tri.style.animationDelay = `${i * -(time / total)}s`;
-      triWrap.appendChild(tri);
+    function updateBubbles() {
+      bubbleArray.forEach((bubble, i) => {
+        bubble.x += bubble.vx;
+        bubble.y += bubble.vy;
+
+        // Bounce op randen
+        if (bubble.x < 0 || bubble.x > window.innerWidth - bubble.radius * 2) bubble.vx *= -1;
+        if (bubble.y < 0 || bubble.y > window.innerHeight - bubble.radius * 2) bubble.vy *= -1;
+
+        // Stuiter tegen andere ballen
+        bubbleArray.forEach((other, j) => {
+          if (i !== j) {
+            const dx = bubble.x - other.x;
+            const dy = bubble.y - other.y;
+            const distance = Math.sqrt(dx*dx + dy*dy);
+            if (distance < bubble.radius + other.radius) {
+              // Simpele elastic bounce
+              const angle = Math.atan2(dy, dx);
+              bubble.vx = Math.cos(angle) * 0.8;
+              bubble.vy = Math.sin(angle) * 0.8;
+              other.vx = -Math.cos(angle) * 0.8;
+              other.vy = -Math.sin(angle) * 0.8;
+            }
+          }
+        });
+
+        bubble.el.style.left = `${bubble.x}px`;
+        bubble.el.style.top = `${bubble.y}px`;
+      });
+      requestAnimationFrame(updateBubbles);
     }
+    updateBubbles();
 
-    // Voorkom auto-scroll bij laden
+    // Voorkom auto-scroll
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
       window.scrollTo(0, 0);
@@ -532,4 +534,4 @@
   </script>
 
 </body>
-</html>
+      </html>
