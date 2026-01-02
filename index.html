@@ -102,31 +102,28 @@
       right: 1rem;
       display: flex;
       justify-content: space-between;
-      align-items: center; /* Zorgt dat logo verticaal gecentreerd blijft */
+      align-items: center;
       background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
       backdrop-filter: blur(20px);
       border-radius: 16px;
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
-      padding: 0.5rem 1.2rem; /* Iets minder padding boven/onder zodat logo ruimte krijgt */
+      padding: 0.5rem 1.2rem;
       z-index: 1001;
-      min-height: 80px; /* Minimale hoogte voor het nieuwe logo */
+      min-height: 80px;
     }
-    /* AANGEPASTE CSS VOOR NIEUWE LOGO */
     .logo-container {
-      height: 90px; /* Hoogte prioriteit geven voor verticaal logo */
-      width: auto;  /* Breedte past zich aan */
+      height: 90px;
+      width: auto;
       display: flex;
       align-items: center;
     }
     .logo-container img {
-      height: 100%; /* Vul de hoogte van de container */
-      width: auto;  /* Behoud de verhouding */
+      height: 100%;
+      width: auto;
       display: block;
-      border-radius: 6px; /* Lichte afronding zodat het jpg blok er mooier uitziet */
+      border-radius: 6px;
     }
-    /* EINDE AANGEPASTE CSS */
-    
     .hamburger {
       width: 40px;
       height: 30px;
@@ -323,7 +320,7 @@
         padding: 0.5rem 1.5rem;
       }
       .logo-container {
-        height: 100px; /* Iets groter op desktop */
+        height: 100px;
         width: auto;
       }
       .tagline { font-size: 2.2rem; }
@@ -504,6 +501,13 @@
 
     hamburger.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
+
+    // NIEUW: Menu automatisch sluiten bij scrollen
+    window.addEventListener('scroll', () => {
+      if (nav.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
 
     // Smooth scroll
     function scrollToSection(id) {
