@@ -5,21 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Schoonmaak Park - Industriële Reiniging</title>
 
-  <!-- Open Graph tags voor WhatsApp/Facebook preview -->
   <meta property="og:title" content="Schoonmaak Park - Industriële Reiniging" />
   <meta property="og:description" content="Professionele industriële reiniging: schoon, veilig & duurzaam. VCA-gecertificeerd. Offerte aanvragen!" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/Professionele/Schoonmaak-park/main/SchoonmaakPark.jpg" />
+  <meta property="og:image" content="PRESSURESPRO.jpg" />
   <meta property="og:url" content="https://professionionele.github.io/Schoonmaak-park/" />
   <meta property="og:type" content="website" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Schoonmaak Park Logo" />
+  <meta property="og:image:width" content="200" />
+  <meta property="og:image:height" content="301" />
+  <meta property="og:image:alt" content="PRESSURES PRO Logo" />
 
-  <!-- Twitter/X cards -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Schoonmaak Park - Industriële Reiniging" />
   <meta name="twitter:description" content="Professionele industriële reiniging: schoon, veilig & duurzaam. VCA-gecertificeerd." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/Professionele/Schoonmaak-park/main/SchoonmaakPark.jpg" />
+  <meta name="twitter:image" content="PRESSURESPRO.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,24 +102,31 @@
       right: 1rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: center; /* Zorgt dat logo verticaal gecentreerd blijft */
       background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
       backdrop-filter: blur(20px);
       border-radius: 16px;
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
-      padding: 0.8rem 1.2rem;
+      padding: 0.5rem 1.2rem; /* Iets minder padding boven/onder zodat logo ruimte krijgt */
       z-index: 1001;
+      min-height: 80px; /* Minimale hoogte voor het nieuwe logo */
     }
+    /* AANGEPASTE CSS VOOR NIEUWE LOGO */
     .logo-container {
-      width: 180px;
-      height: auto;
+      height: 90px; /* Hoogte prioriteit geven voor verticaal logo */
+      width: auto;  /* Breedte past zich aan */
+      display: flex;
+      align-items: center;
     }
     .logo-container img {
-      width: 100%;
-      height: auto;
+      height: 100%; /* Vul de hoogte van de container */
+      width: auto;  /* Behoud de verhouding */
       display: block;
+      border-radius: 6px; /* Lichte afronding zodat het jpg blok er mooier uitziet */
     }
+    /* EINDE AANGEPASTE CSS */
+    
     .hamburger {
       width: 40px;
       height: 30px;
@@ -315,10 +320,11 @@
         top: 2rem;
         left: 2rem;
         right: 2rem;
-        padding: 1rem 1.5rem;
+        padding: 0.5rem 1.5rem;
       }
       .logo-container {
-        width: 280px;
+        height: 100px; /* Iets groter op desktop */
+        width: auto;
       }
       .tagline { font-size: 2.2rem; }
     }
@@ -326,7 +332,6 @@
 </head>
 <body>
 
-  <!-- Rustig zwevende bouncende ballen -->
   <div class="decor-balls">
     <div class="bubble" style="width: 120px; height: 120px;"></div>
     <div class="bubble" style="width: 100px; height: 100px;"></div>
@@ -348,7 +353,7 @@
   <header>
     <div class="header-bar">
       <div class="logo-container">
-        <img src="SchoonmaakPark.png" alt="Schoonmaak Park Logo">
+        <img src="PRESSURESPRO.jpg" alt="PRESSURES PRO Logo">
       </div>
       <div class="hamburger" id="hamburger">
         <span></span>
@@ -420,7 +425,6 @@
       </ul>
     </section>
 
-    <!-- Nieuwe section voor Hoogtewerk (boven Bootreiniging) -->
     <section class="section">
       <h2>Reiniging op hoogte</h2>
       <p>Professionele reiniging op hoogte – veilig, efficiënt en met professionele apparatuur.</p>
@@ -431,7 +435,6 @@
         <li>Veiligheid altijd prioriteit</li>
       </ul>
 
-      <!-- Hoogtewerk.jpg toegevoegd (past perfect bij de section) -->
       <div style="text-align:center; margin:2.5rem 0;">
         <img src="Hoogtewerk.jpg" alt="Reiniging op hoogte voorbeeld" style="max-width:100%; height:auto; border-radius:24px; box-shadow:var(--shadow); backdrop-filter:blur(20px); border:1px solid var(--glass-border);">
       </div>
@@ -446,7 +449,6 @@
         <li>Streepvrij en glanzend</li>
       </ul>
 
-      <!-- Boot.jpg toegevoegd (past perfect bij de section) -->
       <div style="text-align:center; margin:2.5rem 0;">
         <img src="Boot.jpg" alt="Bootreiniging voorbeeld" style="max-width:100%; height:auto; border-radius:24px; box-shadow:var(--shadow); backdrop-filter:blur(20px); border:1px solid var(--glass-border);">
       </div>
@@ -595,4 +597,4 @@
   </script>
 
 </body>
-  </html>
+</html>
