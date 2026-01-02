@@ -7,17 +7,17 @@
 
   <meta property="og:title" content="Schoonmaak Park - Industriële Reiniging" />
   <meta property="og:description" content="Professionele industriële reiniging: schoon, veilig & duurzaam. VCA-gecertificeerd. Offerte aanvragen!" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/Professionele/Schoonmaak-park/main/SchoonmaakPark.jpg" />
+  <meta property="og:image" content="PRESSURESPRO.jpg" />
   <meta property="og:url" content="https://professionionele.github.io/Schoonmaak-park/" />
   <meta property="og:type" content="website" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Schoonmaak Park Logo" />
+  <meta property="og:image:width" content="200" />
+  <meta property="og:image:height" content="301" />
+  <meta property="og:image:alt" content="PRESSURES PRO Logo" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Schoonmaak Park - Industriële Reiniging" />
   <meta name="twitter:description" content="Professionele industriële reiniging: schoon, veilig & duurzaam. VCA-gecertificeerd." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/Professionele/Schoonmaak-park/main/SchoonmaakPark.jpg" />
+  <meta name="twitter:image" content="PRESSURESPRO.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,10 +30,10 @@
       --text-light: #ffffff;
       --bg-start: #e3f2fd;
       --bg-end: #ffffff;
-      --glass-top: rgba(81, 212, 250, 0.55);
-      --glass-bottom: rgba(255, 255, 255, 0.45);
-      --glass-border: rgba(81, 212, 250, 0.4);
-      --shadow: 0 12px 40px rgba(2, 136, 209, 0.25);
+      --glass-top: rgba(255, 255, 255, 0.4);
+      --glass-bottom: rgba(255, 255, 255, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --shadow: 0 12px 40px rgba(2, 136, 209, 0.15);
     }
     [data-theme="dark"] {
       --primary: #01579b;
@@ -42,9 +42,9 @@
       --text-light: #e3f2fd;
       --bg-start: #001f3f;
       --bg-end: #001029;
-      --glass-top: rgba(1, 87, 155, 0.75);
-      --glass-bottom: rgba(0, 43, 77, 0.55);
-      --glass-border: rgba(79, 195, 247, 0.4);
+      --glass-top: rgba(1, 87, 155, 0.3);
+      --glass-bottom: rgba(0, 43, 77, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.1);
       --shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,113 +53,257 @@
       color: var(--text-dark);
       line-height: 1.6;
       min-height: 100vh;
-      background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+      background: var(--bg-start);
       transition: background 0.5s ease, color 0.5s ease;
       position: relative;
       overflow-x: hidden;
     }
-    
-    /* MATTE GLAZEN BOLLEN DESIGN */
-    .decor-balls {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      will-change: transform;
-      background: radial-gradient(circle at 30% 30%, 
-        rgba(255, 255, 255, 0.7) 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(0, 0, 0, 0.05) 100%);
-      box-shadow: 
-        inset -5px -5px 15px rgba(0, 0, 0, 0.05),
-        inset 5px 5px 15px rgba(255, 255, 255, 0.4),
-        0 10px 30px rgba(0, 0, 0, 0.1);
-    }
 
-    /* OUDE LAYOUT STYLES */
+    /* NIEUWE GLAS ACHTERGROND EFFECTEN */
+    .glass-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+    }
+    .glass-blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      filter: blur(80px);
+      opacity: 0.4;
+      border-radius: 50%;
+      transition: transform 0.2s ease-out;
+    }
+    .blob-1 { top: -100px; right: -100px; }
+    .blob-2 { bottom: -100px; left: -100px; background: radial-gradient(circle, #ffffff 0%, transparent 70%); opacity: 0.6; }
+
     header {
       position: relative;
-      background: linear-gradient(to bottom, var(--primary-light), transparent);
+      background: linear-gradient(to bottom, rgba(79, 195, 247, 0.3), transparent);
       color: var(--text-light);
       padding: 7rem 1.5rem 9rem;
       text-align: center;
+      overflow: hidden;
       z-index: 1;
     }
     .header-bar {
       position: absolute;
-      top: 1rem; left: 1rem; right: 1rem;
-      display: flex; justify-content: space-between; align-items: center;
-      background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
-      backdrop-filter: blur(20px);
-      border-radius: 16px; border: 1px solid var(--glass-border);
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--glass-top);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 16px;
+      border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
-      padding: 0.8rem 1.2rem; z-index: 1001;
+      padding: 0.5rem 1.2rem;
+      z-index: 1001;
+      min-height: 80px;
     }
-    .logo-container { width: 180px; }
-    .logo-container img { width: 100%; height: auto; display: block; }
-    .hamburger { width: 40px; height: 30px; cursor: pointer; position: relative; }
-    .hamburger span { position: absolute; left: 0; width: 100%; height: 4px; background: var(--text-light); border-radius: 2px; transition: 0.3s; }
+    .logo-container {
+      height: 90px;
+      width: auto;
+      display: flex;
+      align-items: center;
+    }
+    .logo-container img {
+      height: 100%;
+      width: auto;
+      display: block;
+      border-radius: 6px;
+    }
+    .hamburger {
+      width: 40px;
+      height: 30px;
+      cursor: pointer;
+      position: relative;
+    }
+    .hamburger span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
     .hamburger span:nth-child(1) { top: 0; }
     .hamburger span:nth-child(2) { top: 13px; }
     .hamburger span:nth-child(3) { top: 26px; }
     .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-
-    .nav {
-      display: none; position: fixed; top: 80px; right: 20px; width: 180px;
-      background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
-      backdrop-filter: blur(20px); border-radius: 20px; z-index: 99999; padding: 1rem 0;
-    }
-    .nav.active { display: block; opacity: 1; transform: translateY(0); }
-    .nav a { display: block; color: var(--text-dark); text-decoration: none; padding: 1rem 1.5rem; transition: 0.3s; }
     
-    main { padding: 0 1.5rem; margin-top: -6rem; position: relative; z-index: 2; }
-    .section {
-      background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
-      backdrop-filter: blur(20px); border-radius: 24px; padding: 3rem 2rem; margin: 2.5rem 0;
-      box-shadow: var(--shadow); border: 1px solid var(--glass-border);
-      opacity: 0; transform: translateY(50px); transition: 1s ease-out;
+    .nav {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 180px;
+      background: var(--glass-top);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      transform: translateY(-40px) scale(0.9);
+      opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+      z-index: 99999;
+      padding: 1rem 0;
     }
-    .section.visible { opacity: 1; transform: translateY(0); }
-    h2 { color: var(--primary); text-align: center; margin-bottom: 1.5rem; font-size: 2.2rem; }
-    ul li { margin: 1rem 0; padding-left: 2.5rem; position: relative; list-style: none; }
+    .nav.active {
+      display: block;
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .nav a {
+      display: block;
+      color: var(--text-dark);
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease;
+      z-index: 99998;
+    }
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .header-content {
+      margin-top: 6rem;
+    }
+    .tagline {
+      font-size: 1.8rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    main {
+      padding: 0 1.5rem;
+      margin-top: -6rem;
+      position: relative;
+      z-index: 2;
+    }
+    .section {
+      background: var(--glass-top);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      margin: 2.5rem 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+    }
+    ul li { margin: 1rem 0; padding-left: 2.5rem; position: relative; list-style: none;}
     ul li::before { content: "✔"; color: var(--primary); position: absolute; left: 0; font-size: 1.5rem; top: -2px; }
-    .btn { display: block; background: var(--primary); color: white; padding: 1.2rem; border-radius: 50px; text-align: center; font-weight: 600; text-decoration: none; margin: 2rem auto; max-width: 300px; }
+    .btn {
+      display: block;
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 2rem auto;
+      max-width: 300px;
+      transition: all 0.4s;
+    }
+    form { display: flex; flex-direction: column; gap: 1.5rem; }
+    input, textarea {
+      padding: 1.2rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+      font-size: 1rem;
+      outline: none;
+    }
+    footer {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+      background: var(--primary);
+      color: white;
+    }
 
     @media (min-width: 768px) {
       .hamburger { display: none; }
-      .nav { display: flex; position: static; background: transparent; width: auto; opacity: 1; transform: none; }
-      .nav a { color: white; }
-      .logo-container { width: 280px; }
+      .nav {
+        display: flex;
+        position: static;
+        background: transparent;
+        backdrop-filter: none;
+        box-shadow: none;
+        opacity: 1;
+        width: auto;
+        transform: none;
+      }
+      .nav a { color: var(--primary); font-weight: 600; }
+      .header-bar { top: 2rem; left: 2rem; right: 2rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="decor-balls" id="ballContainer"></div>
+  <div class="glass-bg">
+    <div class="glass-blob blob-1" id="blob1"></div>
+    <div class="glass-blob blob-2" id="blob2"></div>
+  </div>
 
   <header>
     <div class="header-bar">
       <div class="logo-container">
-        <img src="SchoonmaakPark.png" alt="Schoonmaak Park Logo">
+        <img src="PRESSURESPRO.jpg" alt="PRESSURES PRO Logo">
       </div>
-      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
     <nav class="nav" id="navMenu">
       <a href="#home" onclick="scrollToSection('#home')">Home</a>
       <a href="#diensten" onclick="scrollToSection('#diensten')">Diensten</a>
       <a href="#contact" onclick="scrollToSection('#contact')">Contact</a>
-      <div class="theme-switch" style="padding: 1rem;">
-        <label style="cursor:pointer">Dark Mode <input type="checkbox" onchange="toggleTheme()"></label>
-      </div>
     </nav>
     <div class="overlay" id="overlay"></div>
     <div class="header-content">
@@ -170,146 +314,102 @@
   <main>
     <section class="section" id="home">
       <h2>Welkom bij Schoonmaak Park</h2>
-      <p>Industriële reiniging is werk voor specialisten. Schoonmaak Park zorgt ervoor dat uw medewerkers in een propere – en dus ook veiliger – omgeving aan de slag kunnen. Met meer dan 10 jaar ervaring ben ik uw betrouwbare partner voor industriële schoonmaak in heel België.</p>
+      <p>Industriële reiniging is werk voor specialisten. Schoonmaak Park zorgt ervoor dat uw medewerkers in een propere – en dus ook veiliger – omgeving aan de slag kunnen.</p>
       <ul>
         <li>Persoonlijke aanpak op maat</li>
         <li>VCA-gecertificeerd</li>
         <li>Altijd in uw buurt</li>
-        <li>Corona-proof methodes</li>
       </ul>
     </section>
 
     <section class="section" id="diensten">
       <h2>Onze diensten</h2>
-      <p>Voor elke industriële reiniging de gepaste oplossing.</p>
       <ul>
         <li>Hogedrukreiniging</li>
         <li>Droogijsstralen</li>
         <li>Ontvetting & dieptereiniging</li>
         <li>Reiniging op hoogte</li>
-        <li>Ventilatie- en machine-reiniging</li>
       </ul>
     </section>
 
     <section class="section">
       <h2>Reiniging op hoogte</h2>
-      <p>Professionele reiniging op hoogte – veilig, efficiënt en met professionele apparatuur.</p>
       <div style="text-align:center; margin:2.5rem 0;">
-        <img src="Hoogtewerk.jpg" alt="Reiniging op hoogte" style="max-width:100%; height:auto; border-radius:24px; box-shadow:var(--shadow);">
+        <img src="Hoogtewerk.jpg" alt="Reiniging op hoogte" style="max-width:100%; border-radius:24px; box-shadow:var(--shadow);">
       </div>
     </section>
 
     <section class="section">
       <h2>Bootreiniging 🛥️</h2>
       <div style="text-align:center; margin:2.5rem 0;">
-        <img src="Boot.jpg" alt="Bootreiniging" style="max-width:100%; height:auto; border-radius:24px; box-shadow:var(--shadow);">
+        <img src="Boot.jpg" alt="Bootreiniging" style="max-width:100%; border-radius:24px; box-shadow:var(--shadow);">
       </div>
     </section>
 
     <section class="section" id="contact">
-      <h2>Contacteer mij</h2>
-      <div style="text-align:center; margin:1rem 0;">
-        <a href="mailto:info@schoonmaakpark.be" style="text-decoration:none; color:var(--primary); font-weight:bold;">✉️ info@schoonmaakpark.be</a>
-      </div>
-      <form action="https://formspree.io/f/xjgvbkan" method="POST" style="display:flex; flex-direction:column; gap:1.5rem;">
+      <h2 class="contact-title">Contacteer mij</h2>
+      <form action="https://formspree.io/f/xjgvbkan" method="POST">
         <input type="text" name="naam" placeholder="Je naam *" required>
         <input type="tel" name="telefoon" placeholder="Telefoonnummer *" required>
         <input type="email" name="email" placeholder="E-mailadres *" required>
-        <textarea name="bericht" rows="5" placeholder="Je bericht..." required></textarea>
+        <textarea name="bericht" rows="5" placeholder="Je vraag of bericht..." required></textarea>
         <button type="submit" class="btn">Verstuur aanvraag</button>
       </form>
     </section>
   </main>
 
   <footer>
-    © 2025 Schoonmaak Park – Zelfstandig & betrouwbaar<br>
-    <small>VCA-gecertificeerd | Privacy | Algemene voorwaarden</small>
+    © 2025 Schoonmaak Park<br>
+    <small>VCA-gecertificeerd | Privacy</small>
   </footer>
 
   <script>
-    // --- NAV & UI LOGICA ---
-    const hamburger = document.getElementById('hamburger');
+    const hamburger = document.querySelector('.hamburger');
     const nav = document.getElementById('navMenu');
-    hamburger.onclick = () => { hamburger.classList.toggle('active'); nav.classList.toggle('active'); };
+    const overlay = document.getElementById('overlay');
+    const blob1 = document.getElementById('blob1');
+    const blob2 = document.getElementById('blob2');
+
+    function toggleMenu() {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    window.addEventListener('scroll', () => {
+      if (nav.classList.contains('active')) toggleMenu();
+    });
+
+    // SENSOR EFFECT: Beweegt de achtergrond mee met de gsm
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', (event) => {
+        const tiltX = event.gamma / 2; // Links/Rechts
+        const tiltY = event.beta / 2;  // Voor/Achter
+        
+        blob1.style.transform = `translate(${tiltX}px, ${tiltY}px)`;
+        blob2.style.transform = `translate(${-tiltX}px, ${-tiltY}px)`;
+      });
+    }
+
+    // Secties fade-in
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
 
     function scrollToSection(id) {
-      const el = document.querySelector(id);
-      window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
-      nav.classList.remove('active'); hamburger.classList.remove('active');
+      const element = document.querySelector(id);
+      if (element) {
+        window.scrollTo({ top: element.offsetTop - 80, behavior: 'smooth' });
+        if (nav.classList.contains('active')) toggleMenu();
+      }
     }
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.section').forEach(s => observer.observe(s));
-
-    function toggleTheme() {
-      const body = document.body;
-      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
-    }
-
-    // --- SNELLE GLAS PHYSICS (BOTSING + SENSOR) ---
-    const container = document.getElementById('ballContainer');
-    const balls = [];
-    let tiltX = 0, tiltY = 0;
-
-    for (let i = 0; i < 15; i++) {
-      const size = Math.random() * 60 + 80;
-      const el = document.createElement('div');
-      el.className = 'bubble';
-      el.style.width = size + 'px'; el.style.height = size + 'px';
-      container.appendChild(el);
-
-      balls.push({
-        el: el, radius: size / 2,
-        x: Math.random() * (window.innerWidth - size),
-        y: Math.random() * (window.innerHeight - size),
-        vx: 0, vy: 0
-      });
-    }
-
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', (e) => {
-        tiltX = e.gamma * 0.6; // Zeer gevoelig ingesteld
-        tiltY = e.beta * 0.6;
-      });
-    }
-
-    function run() {
-      balls.forEach((b, i) => {
-        b.vx += tiltX * 0.2; b.vy += tiltY * 0.2;
-        b.vx *= 0.94; b.vy *= 0.94; // Wrijving
-        b.x += b.vx; b.y += b.vy;
-
-        // Randen scherm
-        if (b.x < 0) { b.x = 0; b.vx *= -0.7; }
-        if (b.x > window.innerWidth - b.radius*2) { b.x = window.innerWidth - b.radius*2; b.vx *= -0.7; }
-        if (b.y < 0) { b.y = 0; b.vy *= -0.7; }
-        if (b.y > window.innerHeight - b.radius*2) { b.y = window.innerHeight - b.radius*2; b.vy *= -0.7; }
-
-        // BOTSING CHECK (Voorkomt dat ze door elkaar gaan)
-        for (let j = i + 1; j < balls.length; j++) {
-          let b2 = balls[j];
-          let dx = (b2.x + b2.radius) - (b.x + b.radius);
-          let dy = (b2.y + b2.radius) - (b.y + b.radius);
-          let dist = Math.sqrt(dx * dx + dy * dy);
-          let min = b.radius + b2.radius;
-
-          if (dist < min) {
-            let angle = Math.atan2(dy, dx);
-            let tx = b.x + Math.cos(angle) * min;
-            let ty = b.y + Math.sin(angle) * min;
-            let ax = (tx - b2.x) * 0.3;
-            let ay = (ty - b2.y) * 0.3;
-            b.vx -= ax; b.vy -= ay;
-            b2.vx += ax; b2.vy += ay;
-          }
-        }
-        b.el.style.transform = `translate3d(${b.x}px, ${b.y}px, 0)`;
-      });
-      requestAnimationFrame(run);
-    }
-    run();
   </script>
 </body>
 </html>
