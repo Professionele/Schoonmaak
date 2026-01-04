@@ -64,18 +64,19 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    @keyframes glossy-shine-dark {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
     header {
       background: url('achtergrond.jpg') no-repeat center center;
       background-size: cover;
-      background-attachment: fixed;
+      /* Fixed weggehaald voor iPhone support */
       min-height: 100vh;
       position: relative;
       transition: filter 0.5s ease;
+    }
+    /* Alleen op grote schermen het 'fixed' effect gebruiken */
+    @media (min-width: 1025px) {
+      header {
+        background-attachment: fixed;
+      }
     }
     header.scrolled {
       filter: blur(10px);
@@ -170,9 +171,6 @@
       background: rgba(255,255,255,0.2);
       color: var(--primary);
     }
-    [data-theme="dark"] .nav a:hover {
-      background: rgba(0,0,0,0.2);
-    }
     .theme-switch {
       padding: 0.8rem 0;
       font-size: 0.9rem;
@@ -241,7 +239,6 @@
       max-width: 300px;
       transition: all 0.4s;
     }
-    .btn:hover { background: var(--primary-light); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
     form { display: flex; flex-direction: column; gap: 1.5rem; }
     input, textarea {
       padding: 1.2rem;
@@ -259,11 +256,6 @@
       background: rgba(50,50,50,0.9);
       color: var(--text-light);
     }
-    input:focus, textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 20px rgba(100,100,100,0.3);
-      transform: translateY(-2px);
-    }
     footer {
       text-align: center;
       padding: 4rem 1rem 2rem;
@@ -276,10 +268,6 @@
     }
     [data-theme="dark"] footer {
       background: var(--glass-bg-dark);
-    }
-    footer small {
-      font-size: 0.9rem;
-      opacity: 0.8;
     }
     @media (min-width: 768px) {
       .hamburger { display: none; }
@@ -301,8 +289,6 @@
         padding: 0 1.5rem;
         color: var(--text-light);
       }
-      .nav a:hover { color: var(--primary-light); }
-      .theme-switch { display: none; }
       .header-bar {
         top: 2rem;
         left: 2rem;
@@ -464,8 +450,7 @@
     hamburger.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
 
-    // Blur header + bar on scroll
-    let lastScrollTop = 0;
+    // Scroll effecten
     window.addEventListener('scroll', () => {
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -476,84 +461,34 @@
         headerBar.classList.remove('scrolled');
         heroHeader.classList.remove('scrolled');
       }
-
-      // Close menu on down scroll
-      if (currentScroll > lastScrollTop && nav.classList.contains('active')) {
-        nav.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-        nav.style.transform = 'translateY(-100%)';
-        nav.style.opacity = '0';
-        overlay.style.transition = 'opacity 0.3s ease-out';
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-          hamburger.classList.remove('active');
-          nav.classList.remove('active');
-          overlay.classList.remove('active');
-          nav.style.transition = '';
-          nav.style.transform = '';
-          nav.style.opacity = '';
-          overlay.style.transition = '';
-          overlay.style.opacity = '';
-        }, 300);
-      }
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
 
     // Smooth scroll
     function scrollToSection(id) {
       const element = document.querySelector(id);
       if (element) {
-        const start = window.pageYOffset;
-        const target = element.getBoundingClientRect().top + start - 80;
-        const distance = target - start;
-        const duration = 1500;
-        let startTime = null;
-
-        function easeInOutQuad(t) {
-          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        }
-
-        function animation(currentTime) {
-          if (startTime === null) startTime = currentTime;
-          const timeElapsed = currentTime - startTime;
-          const progress = Math.min(timeElapsed / duration, 1);
-          const ease = easeInOutQuad(progress);
-          window.scrollTo(0, start + distance * ease);
-
-          if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-
-        requestAnimationFrame(animation);
-
-        if (nav.classList.contains('active')) {
-          toggleMenu();
-        }
+        window.scrollTo({
+          top: element.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        if (nav.classList.contains('active')) toggleMenu();
       }
     }
 
     // Secties fade-in
-    const sections = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
 
-    sections.forEach(section => observer.observe(section));
+    document.querySelectorAll('.section').forEach(s => observer.observe(s));
 
     // Theme toggle
     function toggleTheme() {
       const body = document.body;
-      const currentTheme = body.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      body.setAttribute('data-theme', newTheme);
+      body.setAttribute('data-theme', body.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
     }
-
-    // Reset hash on load
-    window.addEventListener('load', () => {
-      window.scrollTo(0, 0);
-    });
   </script>
 
 </body>
