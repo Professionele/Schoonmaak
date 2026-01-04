@@ -514,12 +514,16 @@
         nav.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
         nav.style.transform = 'translateY(-100%)'; // Fade naar boven
         nav.style.opacity = '0';
+        overlay.style.transition = 'opacity 0.3s ease-out';
         overlay.style.opacity = '0';
         setTimeout(() => {
           toggleMenu();
-          nav.style.transition = ''; // Reset for next open
-          overlay.style.transition = '';
-        }, 300); // Match duration
+          nav.style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease'; // Reset to original for reopen
+          nav.style.transform = 'translateY(-40px) scale(0.9)';
+          nav.style.opacity = '0';
+          overlay.style.transition = 'opacity 0.4s ease';
+          overlay.style.opacity = '0';
+        }, 300);
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
@@ -574,46 +578,4 @@
 
         if (bubble.x < 0 || bubble.x > window.innerWidth - bubble.radius * 2) {
           bubble.vx *= -0.85;
-          bubble.x = Math.max(0, Math.min(bubble.x, window.innerWidth - bubble.radius * 2));
-        }
-        if (bubble.y < 0 || bubble.y > window.innerHeight - bubble.radius * 2) {
-          bubble.vy *= -0.85;
-          bubble.y = Math.max(0, Math.min(bubble.y, window.innerHeight - bubble.radius * 2));
-        }
-
-        bubble.el.style.left = `${bubble.x}px`;
-        bubble.el.style.top = `${bubble.y}px`;
-      });
-
-      requestAnimationFrame(updateBubbles);
-    }
-    updateBubbles();
-
-    // Secties fade-in
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(section => observer.observe(section));
-
-    // Theme toggle
-    function toggleTheme() {
-      const body = document.body;
-      const currentTheme = body.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      body.setAttribute('data-theme', newTheme);
-    }
-
-    // Reset hash on load
-    window.addEventListener('load', () => {
-      window.scrollTo(0, 0);
-    });
-  </script>
-
-</body>
-</html>
+          bubble.x = Math.max(0, Math.min(bubble
