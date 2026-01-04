@@ -520,11 +520,12 @@
           hamburger.classList.remove('active');
           nav.classList.remove('active');
           overlay.classList.remove('active');
-          // Reset to original closed state (so it can reopen correctly)
-          nav.style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease';
-          nav.style.transform = 'translateY(-40px) scale(0.9)';
-          nav.style.opacity = '0';
-          overlay.style.transition = 'opacity 0.4s ease';
+          // Remove inline styles so CSS takes over for next open
+          nav.style.transition = '';
+          nav.style.transform = '';
+          nav.style.opacity = '';
+          overlay.style.transition = '';
+          overlay.style.opacity = '';
         }, 300);
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
@@ -622,4 +623,4 @@
   </script>
 
 </body>
-      </html>
+</html>
