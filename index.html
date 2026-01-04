@@ -505,15 +505,23 @@
     hamburger.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
 
-    // Close menu on scroll (with animation)
+    // Close menu on scroll with fade-up animation
     let lastScrollTop = 0;
     window.addEventListener('scroll', () => {
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll > lastScrollTop && nav.classList.contains('active')) {
-        // Scrolling down and menu open → close with animation
-        toggleMenu();
+        // Scrolling down and menu open → close with fade-up animation
+        nav.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+        nav.style.transform = 'translateY(-100%)'; // Fade naar boven
+        nav.style.opacity = '0';
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          toggleMenu();
+          nav.style.transition = ''; // Reset for next open
+          overlay.style.transition = '';
+        }, 300); // Match duration
       }
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
 
     // Smooth scroll
