@@ -23,6 +23,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Zorgt voor een soepele scroll op browser niveau */
+    html {
+      scroll-behavior: smooth;
+    }
+
     :root {
       --primary: #555555;
       --primary-light: #888888;
@@ -133,14 +138,13 @@
     .nav.active { display: block; }
     .nav a { display: block; color: var(--text-dark); text-decoration: none; padding: 1rem 0; font-weight: 500; }
 
-    /* --- CENTREREN VAN DE CONTENT --- */
     main {
-      padding: 0 1rem; /* Kleine padding aan de zijkanten op mobiel */
+      padding: 0 1rem;
       position: relative;
       z-index: 2;
       display: flex;
       flex-direction: column;
-      align-items: center; /* Zorgt dat alles horizontaal in het midden staat */
+      align-items: center;
       width: 100%;
     }
     .section {
@@ -154,11 +158,9 @@
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 1s ease-out, transform 1s ease-out;
-      
       width: 100%;
-      max-width: 800px; /* Beperkt de breedte op desktop voor leesbaarheid */
+      max-width: 800px;
     }
-    /* -------------------------------- */
 
     [data-theme="dark"] .section { background: var(--glass-bg-dark); }
     .section.visible { opacity: 1; transform: translateY(0); }
@@ -223,9 +225,9 @@
       </div>
     </div>
     <nav class="nav" id="navMenu">
-      <a href="#home" onclick="scrollToSection('#home')">Home</a>
-      <a href="#diensten" onclick="scrollToSection('#diensten')">Diensten</a>
-      <a href="#contact" onclick="scrollToSection('#contact')">Contact</a>
+      <a href="#home" onclick="scrollToSection('#home'); return false;">Home</a>
+      <a href="#diensten" onclick="scrollToSection('#diensten'); return false;">Diensten</a>
+      <a href="#contact" onclick="scrollToSection('#contact'); return false;">Contact</a>
     </nav>
     <div class="overlay" id="overlay"></div>
   </header>
@@ -343,10 +345,23 @@
       }
     });
 
+    // VERBETERDE SMOOTH SCROLL FUNCTIE
     function scrollToSection(id) {
       const element = document.querySelector(id);
       if (element) {
-        window.scrollTo({ top: element.offsetTop - 80, behavior: 'smooth' });
+        // Bereken de positie met een offset van 80px voor de menu-balk
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+
+        // Sluit menu op mobiel na klik
         if (nav.classList.contains('active')) toggleMenu();
       }
     }
