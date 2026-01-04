@@ -28,8 +28,6 @@
       --primary-light: #4fc3f7;
       --text-dark: #01579b;
       --text-light: #ffffff;
-      --bg-start: #e3f2fd;
-      --bg-end: #ffffff;
       --glass-top: rgba(81, 212, 250, 0.55);
       --glass-bottom: rgba(255, 255, 255, 0.45);
       --glass-border: rgba(81, 212, 250, 0.4);
@@ -40,8 +38,6 @@
       --primary-dark: #002b4d;
       --text-dark: #e3f2fd;
       --text-light: #e3f2fd;
-      --bg-start: #001f3f;
-      --bg-end: #001029;
       --glass-top: rgba(1, 87, 155, 0.75);
       --glass-bottom: rgba(0, 43, 77, 0.55);
       --glass-border: rgba(79, 195, 247, 0.4);
@@ -53,32 +49,22 @@
       color: var(--text-dark);
       line-height: 1.6;
       min-height: 100vh;
-      background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
-      transition: background 0.5s ease, color 0.5s ease;
+      background: url('achtergrond.jpg') no-repeat center center fixed;
+      background-size: cover;
+      transition: color 0.5s ease;
       position: relative;
       overflow-x: hidden;
     }
-    .decor-balls {
+    /* Lichte overlay voor betere leesbaarheid op de achtergrondafbeelding */
+    body::before {
+      content: '';
       position: fixed;
       inset: 0;
-      pointer-events: none;
+      background: rgba(0, 0, 0, 0.4); /* Donkere overlay voor contrast */
       z-index: -1;
     }
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      box-shadow: 0 0 30px var(--primary-light);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      will-change: transform;
-      transition: transform 0.15s ease-out;
-    }
-    [data-theme="light"] .bubble {
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(79,195,247,0.5));
-    }
-    [data-theme="dark"] .bubble {
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
-      box-shadow: 0 0 40px rgba(255,255,255,0.6);
+    [data-theme="dark"] body::before {
+      background: rgba(0, 0, 0, 0.6);
     }
     [data-theme="dark"] h2,
     [data-theme="dark"] .contact-title,
@@ -88,7 +74,6 @@
     }
     header {
       position: relative;
-      background: linear-gradient(to bottom, var(--primary-light), transparent);
       color: var(--text-light);
       padding: 7rem 1.5rem 9rem;
       text-align: center;
@@ -102,31 +87,28 @@
       right: 1rem;
       display: flex;
       justify-content: space-between;
-      align-items: center; /* Zorgt dat logo verticaal gecentreerd blijft */
+      align-items: center;
       background: linear-gradient(135deg, var(--glass-top), var(--glass-bottom));
       backdrop-filter: blur(20px);
       border-radius: 16px;
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
-      padding: 0.5rem 1.2rem; /* Iets minder padding boven/onder zodat logo ruimte krijgt */
+      padding: 0.5rem 1.2rem;
       z-index: 1001;
-      min-height: 80px; /* Minimale hoogte voor het nieuwe logo */
+      min-height: 80px;
     }
-    /* AANGEPASTE CSS VOOR NIEUWE LOGO */
     .logo-container {
-      height: 90px; /* Hoogte prioriteit geven voor verticaal logo */
-      width: auto;  /* Breedte past zich aan */
+      height: 90px;
+      width: auto;
       display: flex;
       align-items: center;
     }
     .logo-container img {
-      height: 100%; /* Vul de hoogte van de container */
-      width: auto;  /* Behoud de verhouding */
+      height: 100%;
+      width: auto;
       display: block;
-      border-radius: 6px; /* Lichte afronding zodat het jpg blok er mooier uitziet */
+      border-radius: 6px;
     }
-    /* EINDE AANGEPASTE CSS */
-    
     .hamburger {
       width: 40px;
       height: 30px;
@@ -212,6 +194,7 @@
       color: var(--text-light);
       font-weight: 500;
       letter-spacing: 0.5px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Extra schaduw voor leesbaarheid op achtergrond */
     }
     main {
       padding: 0 1.5rem;
@@ -323,7 +306,7 @@
         padding: 0.5rem 1.5rem;
       }
       .logo-container {
-        height: 100px; /* Iets groter op desktop */
+        height: 100px;
         width: auto;
       }
       .tagline { font-size: 2.2rem; }
@@ -331,24 +314,6 @@
   </style>
 </head>
 <body>
-
-  <div class="decor-balls">
-    <div class="bubble" style="width: 120px; height: 120px;"></div>
-    <div class="bubble" style="width: 100px; height: 100px;"></div>
-    <div class="bubble" style="width: 140px; height: 140px;"></div>
-    <div class="bubble" style="width: 110px; height: 110px;"></div>
-    <div class="bubble" style="width: 130px; height: 130px;"></div>
-    <div class="bubble" style="width: 90px; height: 90px;"></div>
-    <div class="bubble" style="width: 150px; height: 150px;"></div>
-    <div class="bubble" style="width: 80px; height: 80px;"></div>
-    <div class="bubble" style="width: 160px; height: 160px;"></div>
-    <div class="bubble" style="width: 115px; height: 115px;"></div>
-    <div class="bubble" style="width: 125px; height: 125px;"></div>
-    <div class="bubble" style="width: 105px; height: 105px;"></div>
-    <div class="bubble" style="width: 145px; height: 145px;"></div>
-    <div class="bubble" style="width: 95px; height: 95px;"></div>
-    <div class="bubble" style="width: 135px; height: 135px;"></div>
-  </div>
 
   <header>
     <div class="header-bar">
@@ -510,7 +475,6 @@
     window.addEventListener('scroll', () => {
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll > lastScrollTop && nav.classList.contains('active')) {
-        // Scrolling down and menu open → close with fade-up animation
         nav.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
         nav.style.transform = 'translateY(-100%)';
         nav.style.opacity = '0';
@@ -520,7 +484,6 @@
           hamburger.classList.remove('active');
           nav.classList.remove('active');
           overlay.classList.remove('active');
-          // Remove inline styles so CSS takes over for next open
           nav.style.transition = '';
           nav.style.transform = '';
           nav.style.opacity = '';
@@ -562,39 +525,6 @@
         }
       }
     }
-
-    // Ballen animatie
-    const bubbles = document.querySelectorAll('.bubble');
-    const bubbleArray = Array.from(bubbles).map(bubble => ({
-      el: bubble,
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
-      radius: parseFloat(bubble.style.width) / 2
-    }));
-
-    function updateBubbles() {
-      bubbleArray.forEach((bubble, i) => {
-        bubble.x += bubble.vx;
-        bubble.y += bubble.vy;
-
-        if (bubble.x < 0 || bubble.x > window.innerWidth - bubble.radius * 2) {
-          bubble.vx *= -0.85;
-          bubble.x = Math.max(0, Math.min(bubble.x, window.innerWidth - bubble.radius * 2));
-        }
-        if (bubble.y < 0 || bubble.y > window.innerHeight - bubble.radius * 2) {
-          bubble.vy *= -0.85;
-          bubble.y = Math.max(0, Math.min(bubble.y, window.innerHeight - bubble.radius * 2));
-        }
-
-        bubble.el.style.left = `${bubble.x}px`;
-        bubble.el.style.top = `${bubble.y}px`;
-      });
-
-      requestAnimationFrame(updateBubbles);
-    }
-    updateBubbles();
 
     // Secties fade-in
     const sections = document.querySelectorAll('.section');
