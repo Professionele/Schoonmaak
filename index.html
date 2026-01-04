@@ -26,7 +26,9 @@
       --primary-light: #888888;
       --text-dark: #333333;
       --text-light: #ffffff;
-      --glass-bg: rgba(255, 255, 255, 0.95);
+      --bg-light: #f8f8f8;
+      --bg-dark: #1e1e1e;
+      --glass-bg: #ffffff;
       --glass-border: rgba(200, 200, 200, 0.5);
       --shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
     }
@@ -35,7 +37,7 @@
       --primary-light: #cccccc;
       --text-dark: #eeeeee;
       --text-light: #ffffff;
-      --glass-bg: rgba(30, 30, 30, 0.95);
+      --glass-bg: #2a2a2a;
       --glass-border: rgba(100, 100, 100, 0.5);
       --shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
@@ -45,19 +47,22 @@
       color: var(--text-dark);
       line-height: 1.6;
       min-height: 100vh;
+      background: var(--bg-light);
       position: relative;
       overflow-x: hidden;
     }
+    [data-theme="dark"] body {
+      background: var(--bg-dark);
+    }
     header {
-      background: url('achtergrond.jpg') no-repeat center center fixed;
+      background: url('achtergrond.jpg') no-repeat center center;
       background-size: cover;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
-      text-align: center;
-      padding: 0 1.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0 1.5rem 6rem;
     }
     .header-bar {
       position: fixed;
@@ -75,13 +80,13 @@
       transition: background 0.4s ease, backdrop-filter 0.4s ease, border 0.4s ease;
     }
     .header-bar.scrolled {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
     }
     [data-theme="dark"] .header-bar.scrolled {
-      background: rgba(40, 40, 40, 0.9);
+      background: rgba(40, 40, 40, 0.95);
     }
     .hamburger {
       width: 40px;
@@ -163,23 +168,8 @@
       opacity: 1;
       visibility: visible;
     }
-    .tagline {
-      font-size: 2.2rem;
-      max-width: 900px;
-      margin: 0 auto;
-      color: var(--text-light);
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-shadow: 3px 3px 12px rgba(0,0,0,0.9);
-    }
-    @media (min-width: 768px) {
-      .tagline {
-        font-size: 3.5rem;
-      }
-    }
     main {
       padding: 0 1.5rem;
-      margin-top: -8rem; /* Overlap met hero voor smooth transition */
       position: relative;
       z-index: 2;
     }
@@ -227,7 +217,7 @@
       padding: 1.2rem;
       border: 1px solid var(--glass-border);
       border-radius: 12px;
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.9);
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       font-size: 1rem;
       color: var(--text-dark);
@@ -235,7 +225,7 @@
       outline: none;
     }
     [data-theme="dark"] input, [data-theme="dark"] textarea {
-      background: rgba(50,50,50,0.8);
+      background: rgba(50,50,50,0.9);
       color: var(--text-light);
     }
     input:focus, textarea:focus {
@@ -310,9 +300,6 @@
       </div>
     </nav>
     <div class="overlay" id="overlay"></div>
-    <div class="header-content">
-      <p class="tagline">Professionele industriële reiniging – schoon, veilig & duurzaam</p>
-    </div>
   </header>
 
   <main>
@@ -326,8 +313,6 @@
         <li>Corona-proof methodes</li>
       </ul>
     </section>
-
-    <!-- Rest van je sections blijven exact hetzelfde -->
 
     <section class="section" id="diensten">
       <h2>Onze diensten</h2>
@@ -448,14 +433,12 @@
     window.addEventListener('scroll', () => {
       let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-      // Blur header-bar
       if (currentScroll > 50) {
         headerBar.classList.add('scrolled');
       } else {
         headerBar.classList.remove('scrolled');
       }
 
-      // Close menu on down scroll
       if (currentScroll > lastScrollTop && nav.classList.contains('active')) {
         nav.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
         nav.style.transform = 'translateY(-100%)';
